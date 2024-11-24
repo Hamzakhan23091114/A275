@@ -1,0 +1,6 @@
+Research Question: 
+
+Is there a significant difference in anxiety prevalence between males and females over time across countries or regions?
+
+Independent Variable: Year
+Dependent Varialble:Prevalence of Anxiety Disorders (for Males)

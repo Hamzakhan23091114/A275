@@ -1,0 +1,70 @@
+Dependent Variable: Typically, the outcomes or variables being measured. In this dataset, the dependent variables are likely:
+
+Prevalence of anxiety disorders among males.
+Prevalence of anxiety disorders among females.
+
+Independent Variables: Factors that might influence or correlate with the dependent variable. Here, potential independent variables include:
+
+Year
+Population
+Entity (country/region, as a categorical variable)
+Continent (where available)
+
+Null Hypothesis(H₀): The prevalence of anxiety disorders remains constant over years.
+Hypothesis(H₁): The prevalence of anxiety disorders changes over years.
+
+relation and corelation:-
+
+Here is the correlation matrix for the selected variables:
+
+Variable Pair	                                        Correlation Coefficient
+Male Anxiety Prevalence ↔ Female Anxiety Prevalence	0.9176 (Strong positive correlation)
+Male Anxiety Prevalence ↔ Year	  			0.0556 (Weak positive correlation)
+Female Anxiety Prevalence ↔ Year			0.0346 (Weak positive correlation)
+Male Anxiety Prevalence ↔ Population	-		0.0478 (Weak negative correlation)
+Female Anxiety Prevalence ↔ Population	-		0.0326 (Weak negative correlation)
+Year ↔ Population					0.0147 (No significant correlation)
+
+
+Research Question: Is there a significant difference in the prevalence of anxiety disorders between males and females across different countries or regions, and how does this prevalence vary 		   over time?
+
+code start from here for the library:
+
+library(ggplot2)
+data <- read.csv("prevalence-of-anxiety-disorders-males-vs-females.csv")
+colnames(data) <- c("Entity", "Code", "Year", "Male_Anxiety", "Female_Anxiety", "Population", "Continent")
+clean_data <- na.omit(data[, c("Male_Anxiety", "Female_Anxiety", "Year")])
+library(reshape2)
+long_data <- melt(clean_data, id.vars = "Year", measure.vars = c("Male_Anxiety", "Female_Anxiety"), 
+                  variable.name = "Gender", value.name = "Anxiety_Prevalence")
+
+For Box Plot:
+
+ggplot(long_data, aes(x = Gender, y = Anxiety_Prevalence, fill = Gender)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Box Plot of Anxiety Prevalence by Gender",
+       x = "Gender", 
+       y = "Anxiety Prevalence (%)") +
+  scale_fill_manual(values = c("Male_Anxiety" = "#1f77b4", "Female_Anxiety" = "#ff7f0e"))
+
+
+For Histogram:
+ggplot(combined_data, aes(x = Prevalence, fill = Gender)) +
+  geom_histogram(alpha = 0.7, position = "identity", bins = 30) +
+  theme_minimal() +
+  labs(title = "Histogram of Anxiety Prevalence by Gender",
+       x = "Anxiety Prevalence (%)", 
+       y = "Frequency") +
+  scale_fill_manual(values = c("Male" = "#1f77b4", "Female" = "#ff7f0e"))
+
+
+#Install the required R packages if you don’t already have them:
+
+install.packages("ggplot2")
+install.packages("reshape2")
+
+
+
+
+
